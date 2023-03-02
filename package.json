@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/AndressaRodriguess/video-maker#readme",
   "dependencies": {
-    "readline-sync": "^1.4.10"
+    "node-fetch": "^3.3.0",
+    "readline-sync": "^1.4.10",
+    "sbd": "^1.0.19"
   }
 }
