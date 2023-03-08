@@ -1,16 +1,20 @@
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const sentenceBoundaryDetection  = require('sbd');
-require('dotenv').config()
+require('dotenv').config();
 const { OpenAIApi, Configuration } = require('openai');
+const state = require('./state.js');
 
-async function robot(content) {
+async function robot() {
+    const content = state.load();
+
     await fetchContentFromWikipedia(content);
     sanitizeContent(content);
     breakContentIntoSentences(content);
     limitMaximumSentences(content);
-
     await fetchKeywordsOfAllSentences(content);
 
+    state.save(content);
+    
     async function fetchContentFromWikipedia(content) {
         const apiUrl = `https://pt.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&titles=${(content.searchTerm)}&exsectionformat=wiki&explaintext=1&exintro=1`;
 
